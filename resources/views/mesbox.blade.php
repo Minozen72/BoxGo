@@ -30,7 +30,13 @@
                     <td>{{ $box->name }}</td>
                     <td>{{ $box->description }}</td>
                     <td>{{ $box->rented ? 'Oui' : 'Non' }}</td>
-                    <td>{{ $box->locataire ? $box->locataire->name : 'Aucun' }}</td>
+                    <td>
+                        @if ($box->locataire)
+                            <a href="{{ route('locataires.edit', ['locataire' => $box->locataire->id, 'url' => route('boxes.index')]) }}">{{ $box->locataire->name }}</a>
+                        @else
+                            Aucun
+                        @endif
+                    </td>
                     <td>
                         <a href="{{ route('boxes.edit', $box->id) }}" class="btn btn-warning">Modifier</a>
                         <form action="{{ route('boxes.destroy', $box->id) }}" method="POST" style="display:inline;">
