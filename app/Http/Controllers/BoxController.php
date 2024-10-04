@@ -16,7 +16,7 @@ class BoxController extends Controller
     public function create()
     {
         $locataires = Locataire::all();
-        return view('createbox', compact('locataires'));
+        return view('box/createbox', compact('locataires'));
     }
 
     public function store(Request $request)
@@ -35,7 +35,7 @@ class BoxController extends Controller
     public function edit(Box $box)
     {
         $locataires = Locataire::all();
-        return view('editbox', compact('box', 'locataires'));
+        return view('box/editbox', compact('box', 'locataires'));
     }
 
     public function update(Request $request, Box $box)
