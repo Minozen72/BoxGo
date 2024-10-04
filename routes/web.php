@@ -22,13 +22,12 @@ Route::get('/mesbox', [BoxController::class, 'index'])->name('mesbox');
 // Route de ressource pour BoxController
 Route::resource('boxes', BoxController::class);
 
+// Route pour afficher la vue 'meslocataires'
+Route::get('/meslocataires', [LocataireController::class, 'index'])->name('meslocataires');
+
 // Route de ressource pour LocataireController
 Route::resource('locataires', LocataireController::class);
 
-// Route pour afficher la vue 'meslocataires'
-Route::get('/meslocataires', function () {
-    return view('meslocataires');
-})->name('meslocataires');
 
 // Route pour afficher la vue 'impots'
 Route::get('/impots', function () {

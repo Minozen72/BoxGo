@@ -11,13 +11,13 @@ class LocataireController extends Controller
     public function index()
     {
         $locataires = Locataire::all();
-        return view('locataires.index', compact('locataires'));
+        return view('meslocataires', compact('locataires'));
     }
 
     // Afficher le formulaire de création d'un nouveau locataire
     public function create()
     {
-        return view('locataires.create');
+        return view('locataire/createloc');
     }
 
     // Stocker un nouveau locataire
@@ -25,7 +25,7 @@ class LocataireController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            // Ajoute d'autres validations selon tes besoins
+            'email' => 'nullable|string'
         ]);
 
         Locataire::create($request->all());
@@ -34,9 +34,10 @@ class LocataireController extends Controller
     }
 
     // Afficher le formulaire de modification d'un locataire
-    public function edit(Locataire $locataire)
+    public function edit(Locataire $locataire, Request $request)
     {
-        return view('locataires.edit', compact('locataire'));
+        $url = $request->query('url');
+        return view('locataire/editloc', compact('locataire', 'url'));
     }
 
     // Mettre à jour un locataire
@@ -44,7 +45,7 @@ class LocataireController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            // Ajoute d'autres validations selon tes besoins
+            'email' => 'nullable|string'
         ]);
 
         $locataire->update($request->all());
