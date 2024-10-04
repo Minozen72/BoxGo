@@ -32,7 +32,7 @@
                     <td>{{ $box->rented ? 'Oui' : 'Non' }}</td>
                     <td>
                         @if ($box->locataire)
-                            <a href="{{ route('locataires.edit', ['locataire' => $box->locataire->id, 'url' => route('boxes.index')]) }}">{{ $box->locataire->name }}</a>
+                            <a href="{{ route('locataires.edit', ['locataire' => $box->locataire->id, 'url' => url()->current()]) }}">{{ $box->locataire->name }}</a>
                         @else
                             Aucun
                         @endif

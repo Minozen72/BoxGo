@@ -50,7 +50,15 @@ class LocataireController extends Controller
 
         $locataire->update($request->all());
 
-        return redirect()->route('locataires.index')->with('success', 'Locataire mis à jour avec succès.');
+        $url = $request->query('url');
+        
+
+        if($url === route('boxes.index')){ 
+            return redirect()->route('boxes.index')->with('success', 'Locataire mis à jour avec succès.');
+
+        }else{
+            return redirect()->route('locataires.index')->with('success', 'Locataire mis à jour avec succès.');
+        }
     }
 
     // Supprimer un locataire

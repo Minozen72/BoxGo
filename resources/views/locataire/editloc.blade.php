@@ -21,7 +21,7 @@
         </div>
     @endif
 
-    <form action="{{ route('locataires.update', $locataire->id) }}" method="POST">
+    <form action="{{ route('locataires.update', ['locataire' => $locataire->id, 'url' => $url]) }}" method="POST">
         @csrf
         @method('PUT')
 
@@ -33,16 +33,9 @@
         <div class="form-group">
             <label for="description">Email</label>
             <input class="form-control" name="email" value="{{ old('email', $locataire->email) }}">
-        </div>
-
-
-
+        </div>        
         <button type="submit" class="btn btn-primary">Modifier mon locataire</button>
-        @if ($url == route('boxes.index'))
-            <a href="{{ route('boxes.index') }}" class="btn btn-secondary">Annuler</a>
-        @else
-            <a href="{{ route('locataires.index') }}" class="btn btn-secondary">Annuler</a>
-        @endif
+        <a href="{{ route('boxes.index') }}" class="btn btn-secondary">Annuler</a>
     </form>
 </div>
 @endsection
