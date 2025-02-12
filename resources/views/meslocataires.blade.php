@@ -27,6 +27,7 @@
                     <td>{{ $loc->id }}</td>
                     <td>{{ $loc->name }}</td>
                     <td>{{ $loc->email }}</td>
+
                     <td>
                         <a href="{{ route('locataires.edit', $loc->id) }}" class="btn btn-warning">Modifier</a>
                         <form action="{{ route('locataires.destroy', $loc->id) }}" method="POST" style="display:inline;">

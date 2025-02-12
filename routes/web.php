@@ -19,6 +19,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // Route pour afficher la vue 'mesbox'
 Route::get('/mesbox', [BoxController::class, 'index'])->name('mesbox');
 
+// Route personnalisée pour la facture d'une box
+Route::get('boxes/{box}/facture', [BoxController::class, 'facture'])->name('boxes.facture');
+
 // Route de ressource pour BoxController
 Route::resource('boxes', BoxController::class);
 

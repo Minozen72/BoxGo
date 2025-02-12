@@ -16,9 +16,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->boolean('rented')->default(false); // Ajouter la colonne 'rented'
-            $table->unsignedBigInteger('locataire_id')->nullable(); // Ajouter la colonne 'locataire_id'
-            $table->foreign('locataire_id')->references('id')->on('locataires')->onDelete('set null'); // Définir la clé étrangère
+            $table->boolean('rented')->default(false);
+            $table->unsignedBigInteger('locataire_id')->nullable();
+            $table->foreign('locataire_id')->references('id')->on('locataires')->onDelete('set null'); 
             $table->timestamps();
         });
     }

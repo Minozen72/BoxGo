@@ -56,4 +56,10 @@ class BoxController extends Controller
         $box->delete();
         return redirect()->route('boxes.index')->with('success', 'Box supprimée avec succès.');
     }
+
+    public function facture(Box $box)
+    {
+        $locataires = Locataire::all();
+        return view('box/facture', compact('box', 'locataires'));
+    }
 }

@@ -67,4 +67,10 @@ class LocataireController extends Controller
         $locataire->delete();
         return redirect()->route('locataires.index')->with('success', 'Locataire supprimé avec succès.');
     }
+
+    public function facture($box)
+    {
+        $locataire = Locataire::find($box->locataire_id);
+        return view('locataire/facture', compact('locataire', 'box'));
+    }
 }

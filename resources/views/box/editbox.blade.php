@@ -1,6 +1,4 @@
-<!-- resources/views/edit_box.blade.php -->
-@extends('layouts.app')  <!-- Assurez-vous que ce layout existe -->
-
+@extends('layouts.app')
 @section('content')
 <div class="container">
     <h1>Modifier la Box : {{ $box->name }}</h1>

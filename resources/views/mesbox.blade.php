@@ -15,18 +15,17 @@
     <table class="table mt-4">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Nom</th>
                 <th>Description</th>
                 <th>Louée</th>
                 <th>Locataire</th>
+                <th>Facture</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($boxes as $box)
                 <tr>
-                    <td>{{ $box->id }}</td>
                     <td>{{ $box->name }}</td>
                     <td>{{ $box->description }}</td>
                     <td>{{ $box->rented ? 'Oui' : 'Non' }}</td>
@@ -36,6 +35,9 @@
                         @else
                             Aucun
                         @endif
+                    </td>
+                    <td>
+                        <a href="{{ route('boxes.facture', $box->id) }}" class="btn btn-success">Voir</a>
                     </td>
                     <td>
                         <a href="{{ route('boxes.edit', $box->id) }}" class="btn btn-warning">Modifier</a>
