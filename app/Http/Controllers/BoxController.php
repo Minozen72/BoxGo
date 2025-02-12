@@ -16,7 +16,8 @@ class BoxController extends Controller
     public function create()
     {
         $locataires = Locataire::all();
-        return view('box/createbox', compact('locataires'));
+        $users = auth()->user(); // Récupère l'utilisateur authentifié
+        return view('box.createbox', compact('locataires', 'users'));
     }
 
     public function store(Request $request)
@@ -26,6 +27,12 @@ class BoxController extends Controller
             'description' => 'nullable|string',
             'rented' => 'boolean',
             'locataire_id' => 'nullable|exists:locataires,id',
+            'prix' => 'required|numeric',
+            'proprietaire_id' => 'required|exists:users,id',
+            'date_debut' => 'nullable|date',  
+            'date_fin' => 'nullable|date',
+            'adresse' => 'nullable|string',
+
         ]);
 
         Box::create($request->all());
@@ -45,6 +52,12 @@ class BoxController extends Controller
             'description' => 'nullable|string',
             'rented' => 'boolean',
             'locataire_id' => 'nullable|exists:locataires,id',
+            'prix' => 'required|numeric',
+            'proprietaire_id' => 'required|exists:users,id',
+            'date_debut' => 'nullable|date',
+            'date_fin' => 'nullable|date',
+            'adresse' => 'nullable|string',
+
         ]);
 
         $box->update($request->all());
@@ -59,7 +72,7 @@ class BoxController extends Controller
 
     public function facture(Box $box)
     {
-        $locataires = Locataire::all();
-        return view('box/facture', compact('box', 'locataires'));
+        $users = auth()->user(); // Récupère l'utilisateur authentifié
+        return view('box/facture', compact('box', 'users'));
     }
 }

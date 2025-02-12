@@ -35,6 +35,11 @@
         </div>
 
         <div class="form-group">
+            <label for="adresse">Adresse</label>
+            <input type="text" class="form-control" id="adresse" name="adresse" value="{{ old('adresse', $box->adresse) }}" required>
+        </div>
+
+        <div class="form-group">
             <label for="rented">Louée</label>
             <select class="form-control" id="rented" name="rented">
                 <option value="0" {{ $box->rented ? '' : 'selected' }}>Non</option>
@@ -42,7 +47,7 @@
             </select>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" id="locataire-container" style="display: none;">
             <label for="locataire_id">Locataire</label>
             <select class="form-control" id="locataire_id" name="locataire_id">
                 <option value="">Aucun</option>
@@ -52,10 +57,54 @@
                     </option>
                 @endforeach
             </select>
+
+            <br><label for="date_debut">Date de début</label>
+            <input type="date" class="form-control" id="date_debut" name="date_debut" value="{{ old('date_debut', $box->date_debut) }}">
+            <br><label for="date_fin">Date de fin</label>
+            <input type="date" class="form-control" id="date_fin" name="date_fin" value="{{ old('date_fin', $box->date_fin) }}">
         </div>
+
+        <div class="form-group">
+            <label for="prix">Prix (€/mois)</label>
+            <input type="number" class="form-control" id="prix" name="prix" value="{{ old('prix', $box->prix) }}" required>
+        </div>
+        <br>
+
+        <input type="number" id="proproprietaire_id" name="proprietaire_id" value="{{ $box->proprietaire_id }}" hidden>
 
         <button type="submit" class="btn btn-primary">Modifier la Box</button>
         <a href="{{ route('boxes.index') }}" class="btn btn-secondary">Annuler</a>
     </form>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const rentedSelect = document.getElementById('rented');
+        const locataireContainer = document.getElementById('locataire-container');
+        const locataireSelect = document.getElementById('locataire_id');
+        const form = document.querySelector('form');
+
+        function toggleLocataireContainer() {
+            if (rentedSelect.value === '1') {
+                locataireContainer.style.display = 'block';
+                locataireSelect.setAttribute('required', 'required');
+            } else {
+                locataireContainer.style.display = 'none';
+                locataireSelect.removeAttribute('required');
+            }
+        }
+
+        rentedSelect.addEventListener('change', toggleLocataireContainer);
+
+        form.addEventListener('submit', function(event) {
+            if (rentedSelect.value === '1' && locataireSelect.value === '') {
+                event.preventDefault();
+                alert('Erreur : Vous devez sélectionner un locataire si la box est louée.');
+            }
+        });
+
+        // Initial call to set the correct state on page load
+        toggleLocataireContainer();
+    });
+</script>
 @endsection

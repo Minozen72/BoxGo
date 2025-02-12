@@ -13,12 +13,23 @@ class Box extends Model
         'name',
         'description',
         'rented',
-        'locataire_id', // Colonne qui stocke l'ID du locataire
+        'prix',
+        'date_debut',
+        'date_fin',
+        'adresse',
+        'locataire_id',
+        'proprietaire_id'
     ];
 
     // Relation : une Box appartient à un Locataire
     public function locataire()
     {
-        return $this->belongsTo(Locataire::class);
+        return $this->belongsTo(Locataire::class,'locataire_id');
+    }
+
+    // Relation : une Box appartient à un Propriétaire
+    public function proprietaire()
+    {
+        return $this->belongsTo(User::class, 'proprietaire_id');
     }
 }

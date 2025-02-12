@@ -17,8 +17,12 @@
             <tr>
                 <th>Nom</th>
                 <th>Description</th>
+                <th>Adresse</th>
                 <th>Louée</th>
                 <th>Locataire</th>
+                <th>Prix</th>
+                <th>Date de debut</th>
+                <th>Date de fin</th>
                 <th>Facture</th>
                 <th>Actions</th>
             </tr>
@@ -28,6 +32,7 @@
                 <tr>
                     <td>{{ $box->name }}</td>
                     <td>{{ $box->description }}</td>
+                    <td>{{ $box->adresse }}</td>
                     <td>{{ $box->rented ? 'Oui' : 'Non' }}</td>
                     <td>
                         @if ($box->locataire)
@@ -37,7 +42,19 @@
                         @endif
                     </td>
                     <td>
-                        <a href="{{ route('boxes.facture', $box->id) }}" class="btn btn-success">Voir</a>
+                        {{ $box->prix }} €
+                    </td>
+                    <td>
+                        {{ $box->date_debut }}
+                    </td>
+                    <td>
+                        {{ $box->date_fin }}
+                    </td>
+                    <td>
+                        <a href="{{ route('boxes.facture', $box->id) }}" class="btn btn-success">Créer</a>
+                        <a href="" class="btn btn-primary">Voir</a>
+
+
                     </td>
                     <td>
                         <a href="{{ route('boxes.edit', $box->id) }}" class="btn btn-warning">Modifier</a>
