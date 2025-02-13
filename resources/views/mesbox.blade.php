@@ -51,10 +51,8 @@
                         {{ $box->date_fin }}
                     </td>
                     <td>
+                        <a href="{{ route('factures.index', ['box_id' => $box->id]) }}" class="btn btn-primary">Voir</a>
                         <a href="{{ route('boxes.facture', $box->id) }}" class="btn btn-success">Créer</a>
-                        <a href="" class="btn btn-primary">Voir</a>
-
-
                     </td>
                     <td>
                         <a href="{{ route('boxes.edit', $box->id) }}" class="btn btn-warning">Modifier</a>

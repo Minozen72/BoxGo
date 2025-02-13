@@ -35,6 +35,9 @@ Route::resource('locataires', LocataireController::class);
 // Route pour afficher la vue 'factures'
 Route::get('/factures', [FactureController::class, 'index'])->name('factures');
 
+// Route de ressource pour FactureController
+Route::resource('factures', FactureController::class);
+
 
 // Route pour afficher la vue 'impots'
 Route::get('/impots', function () {
