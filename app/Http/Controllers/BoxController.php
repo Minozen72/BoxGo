@@ -72,7 +72,7 @@ class BoxController extends Controller
 
     public function facture(Box $box)
     {
-        $users = auth()->user(); // Récupère l'utilisateur authentifié
+        $users = auth()->user();
         return view('box/facture', compact('box', 'users'));
     }
 }

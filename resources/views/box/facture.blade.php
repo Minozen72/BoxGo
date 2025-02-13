@@ -58,7 +58,7 @@
 
         <div class="mb-3">
             <label for="adresse-parking" class="form-label">Pour le box situé :</label>
-            <input type="text" class="form-control" id="adresse-parking" placeholder="(adresse complète du parking)">
+            <input type="text" class="form-control" id="adresse-parking" value="{{ $box->adresse }}">
         </div>
 
         <div class="mb-4">
@@ -78,6 +78,7 @@
                 </div>
             </div>
         </div>
+        <button type="submit" class="btn btn-success">Valider</button>
     </form>
 </div>
 @endsection

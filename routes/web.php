@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BoxController;
 use App\Http\Controllers\LocataireController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\FactureController;
 
 // Route principale
 Route::get('/', function () {
@@ -30,6 +31,9 @@ Route::get('/meslocataires', [LocataireController::class, 'index'])->name('meslo
 
 // Route de ressource pour LocataireController
 Route::resource('locataires', LocataireController::class);
+
+// Route pour afficher la vue 'factures'
+Route::get('/factures', [FactureController::class, 'index'])->name('factures');
 
 
 // Route pour afficher la vue 'impots'
