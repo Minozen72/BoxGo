@@ -12,6 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('boxes', function (Blueprint $table) {
+            $table->integer('prix');
+
             $table->unsignedBigInteger('proprietaire_id')->default(1)->after('prix'); // Ajoutez une valeur par défaut appropriée
 
             // Ajout de la clé étrangère
