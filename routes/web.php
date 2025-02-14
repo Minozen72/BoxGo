@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BoxController;
 use App\Http\Controllers\TenantController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ContractModelController;
 
 // Route principale
 Route::get('/', function () {
@@ -21,3 +22,6 @@ Route::resource('boxes', BoxController::class);
 
 // Route de ressource pour LocataireController
 Route::resource('tenants', TenantController::class);
+
+// Route de ressource pour ContractModelController
+Route::resource('contract_models', ContractModelController::class);

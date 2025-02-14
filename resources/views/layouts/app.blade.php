@@ -38,6 +38,9 @@
                                 <a class="nav-link" href="{{ route('tenants.index') }}">{{ __('Mes locataires') }}</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('contract_models.index') }}">{{ __('Model de Contrat') }}</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="">{{ __('Impots') }}</a>
                             </li>
                         @endauth
