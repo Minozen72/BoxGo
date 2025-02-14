@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BoxController;
-use App\Http\Controllers\LocataireController;
+use App\Http\Controllers\TenantController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\FactureController;
 
@@ -26,11 +26,8 @@ Route::get('boxes/{box}/facture', [BoxController::class, 'facture'])->name('boxe
 // Route de ressource pour BoxController
 Route::resource('boxes', BoxController::class);
 
-// Route pour afficher la vue 'meslocataires'
-Route::get('/meslocataires', [LocataireController::class, 'index'])->name('meslocataires');
-
 // Route de ressource pour LocataireController
-Route::resource('locataires', LocataireController::class);
+Route::resource('tenants', TenantController::class);
 
 // Route pour afficher la vue 'factures'
 Route::get('/factures', [FactureController::class, 'index'])->name('factures');

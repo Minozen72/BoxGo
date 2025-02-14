@@ -35,7 +35,7 @@
                                 <a class="nav-link" href="{{ route('mesbox') }}">{{ __('Mes box') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('meslocataires') }}">{{ __('Mes locataires') }}</a>
+                                <a class="nav-link" href="{{ route('tenants.index') }}">{{ __('Mes locataires') }}</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('impots') }}">{{ __('Impots') }}</a>

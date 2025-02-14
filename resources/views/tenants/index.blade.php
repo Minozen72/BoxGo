@@ -2,35 +2,33 @@
 
 @section('content')
 <div class="container">
-    <h1>Mes locataires</h1>
-
+    <h1>Liste des Locataires</h1>
     @if (session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
         </div>
     @endif
-
-    <a href="{{ route('locataires.create') }}" class="btn btn-primary">Ajouter un locataires</a>
-
+    <a href="{{ route('tenants.create') }}" class="btn btn-primary">Ajouter un Locataire</a>
     <table class="table mt-4">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Nom</th>
                 <th>Email</th>
+                <th>Téléphone</th>
+                <th>Adresse</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($locataires as $loc)
+            @foreach ($tenants as $tenant)
                 <tr>
-                    <td>{{ $loc->id }}</td>
-                    <td>{{ $loc->name }}</td>
-                    <td>{{ $loc->email }}</td>
-
+                    <td>{{ $tenant->name }}</td>
+                    <td>{{ $tenant->email }}</td>
+                    <td>{{ $tenant->phone }}</td>
+                    <td>{{ $tenant->address }}</td>
                     <td>
-                        <a href="{{ route('locataires.edit', $loc->id) }}" class="btn btn-warning">Modifier</a>
-                        <form action="{{ route('locataires.destroy', $loc->id) }}" method="POST" style="display:inline;">
+                        <a href="{{ route('tenants.edit', $tenant->id) }}" class="btn btn-warning">Modifier</a>
+                        <form action="{{ route('tenants.destroy', $tenant->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Supprimer</button>
