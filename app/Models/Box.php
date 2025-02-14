@@ -10,31 +10,12 @@ class Box extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'description',
-        'rented',
-        'prix',
-        'date_debut',
-        'date_fin',
-        'adresse',
-        'locataire_id',
-        'proprietaire_id'
+        'name', 'address', 'price', 'owner_id'
+
     ];
 
-    // Relation : une Box appartient à un Locataire
-    public function locataire()
+    public function owner()
     {
-        return $this->belongsTo(Locataire::class,'locataire_id');
-    }
-
-    // Relation : une Box appartient à un Propriétaire
-    public function proprietaire()
-    {
-        return $this->belongsTo(User::class, 'proprietaire_id');
-    }
-
-    public function factures()
-    {
-        return $this->hasMany(Facture::class);
+        return $this->belongsTo(User::class, 'owner_id');
     }
 }

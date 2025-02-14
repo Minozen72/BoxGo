@@ -32,13 +32,13 @@
                     <ul class="navbar-nav me-auto">
                         @auth
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('mesbox') }}">{{ __('Mes box') }}</a>
+                                <a class="nav-link" href="{{ route('boxes.index') }}">{{ __('Mes box') }}</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('tenants.index') }}">{{ __('Mes locataires') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('impots') }}">{{ __('Impots') }}</a>
+                                <a class="nav-link" href="">{{ __('Impots') }}</a>
                             </li>
                         @endauth
                     </ul>

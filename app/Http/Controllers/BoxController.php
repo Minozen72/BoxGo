@@ -2,77 +2,78 @@
 namespace App\Http\Controllers;
 
 use App\Models\Box;
-use App\Models\Locataire;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BoxController extends Controller
 {
     public function index()
     {
-        $boxes = Box::with('locataire')->get();
-        return view('mesbox', compact('boxes'));
+        $user = Auth::user();
+        $boxes = Box::where('owner_id', $user->id)->get();
+        return view('boxes.index', compact('boxes'));
     }
 
     public function create()
     {
-        $locataires = Locataire::all();
-        $users = auth()->user(); // Récupère l'utilisateur authentifié
-        return view('box.createbox', compact('locataires', 'users'));
+        return view('boxes.create');
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'rented' => 'boolean',
-            'locataire_id' => 'nullable|exists:locataires,id',
-            'prix' => 'required|numeric',
-            'proprietaire_id' => 'required|exists:users,id',
-            'date_debut' => 'nullable|date',  
-            'date_fin' => 'nullable|date',
-            'adresse' => 'nullable|string',
-
+            'address' => 'nullable|string|max:255',
+            'price' => 'required|integer',
         ]);
 
-        Box::create($request->all());
-        return redirect()->route('boxes.index')->with('success', 'Box créée avec succès.');
+        $box = new Box($request->all());
+        $box->owner_id = Auth::id();
+        $box->save();
+
+        return redirect()->route('boxes.index')->with('success', 'Box created successfully.');
+    }
+
+    public function show(Box $box)
+    {
+        if ($box->owner_id !== Auth::id()) {
+            abort(403);
+        }
+        return view('boxes.show', compact('box'));
     }
 
     public function edit(Box $box)
     {
-        $locataires = Locataire::all();
-        return view('box/editbox', compact('box', 'locataires'));
+        if ($box->owner_id !== Auth::id()) {
+            abort(403);
+        }
+        return view('boxes.edit', compact('box'));
     }
 
     public function update(Request $request, Box $box)
     {
+        if ($box->owner_id !== Auth::id()) {
+            abort(403);
+        }
+
         $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'rented' => 'boolean',
-            'locataire_id' => 'nullable|exists:locataires,id',
-            'prix' => 'required|numeric',
-            'proprietaire_id' => 'required|exists:users,id',
-            'date_debut' => 'nullable|date',
-            'date_fin' => 'nullable|date',
-            'adresse' => 'nullable|string',
-
+            'address' => 'nullable|string|max:255',
+            'price' => 'required|integer',
         ]);
 
         $box->update($request->all());
-        return redirect()->route('boxes.index')->with('success', 'Box mise à jour avec succès.');
+
+        return redirect()->route('boxes.index')->with('success', 'Box updated successfully.');
     }
 
     public function destroy(Box $box)
     {
+        if ($box->owner_id !== Auth::id()) {
+            abort(403);
+        }
         $box->delete();
-        return redirect()->route('boxes.index')->with('success', 'Box supprimée avec succès.');
-    }
-
-    public function facture(Box $box)
-    {
-        $users = auth()->user();
-        return view('box/facture', compact('box', 'users'));
+        return redirect()->route('boxes.index')->with('success', 'Box deleted successfully.');
     }
 }
