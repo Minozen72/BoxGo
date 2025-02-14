@@ -15,10 +15,10 @@ return new class extends Migration
         Schema::create('boxes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('description')->nullable();
-            $table->boolean('rented')->default(false);
-            $table->unsignedBigInteger('locataire_id')->nullable();
-            $table->foreign('locataire_id')->references('id')->on('locataires')->onDelete('set null'); 
+            $table->string('address')->nullable();
+            $table->integer('price');
+            $table->unsignedBigInteger('owner_id')->nullable();
+            $table->foreign('owner_id')->references('id')->on('users')->onDelete('set null'); 
             $table->timestamps();
         });
     }
