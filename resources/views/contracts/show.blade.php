@@ -2,39 +2,24 @@
 
 @section('content')
 <div class="container">
-    <h1>Créer un Modèle de Contrat</h1>
-    <p>Le contrat doit contenir les champ suivant pour une complétion automatique</p>
-    <ul>
-        <li>[NOM_LOCATAIRE] : Nom du locataire</li>
-        <li>[NOM_PROPRIETAIRE] : Nom du propriétaire</li>
-        <li>[DATE_START] : Date de début du contrat</li>
-        <li>[DATE_END] : Date de fin du contrat</li>
-        <li>[MONTHLY_PRICE] : Prix mensuel de la location</li>
-    </ul>
-
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+    <h1>Détails du Contrat</h1>
+    <div class="card">
+        <div class="card-header">
+            Contrat #{{ $contract->id }}
         </div>
-    @endif
-
-    <form action="{{ route('contract_models.store') }}" method="POST">
-        @csrf
-        <div class="mb-3">
-            <label for="name" class="form-label">Nom</label>
-            <input type="text" name="name" class="form-control" id="name" value="{{ old('name') }}" required>
+        <div class="card-body">
+            <p><strong>Date de début :</strong> {{ $contract->date_start }}</p>
+            <p><strong>Date de fin :</strong> {{ $contract->date_end }}</p>
+            <p><strong>Prix mensuel :</strong> {{ $contract->monthly_price }} €</p>
+            <p><strong>Box :</strong> {{ $contract->box->name }}</p>
+            <p><strong>Locataire :</strong> {{ $contract->tenant->name }}</p>
+            <p><strong>Propriétaire :</strong> {{ $contract->owner->name }}</p>
+            <p><strong>Modèle de contrat :</strong> {{ $contract->contractModel->name }}</p>
+            <p><strong>Contenu du contrat :</strong></p>
+            <div id="editorjs-viewer" style="min-height: 300px; border: 1px solid #ced4da; padding: 10px;"></div>
         </div>
-        <div class="mb-3">
-            <label for="content" class="form-label">Contenu</label>
-            <div id="editorjs" style="min-height: 300px; border: 1px solid #ced4da; padding: 10px;"></div>
-            <input type="hidden" name="content" id="content">
-        </div>
-        <button type="submit" class="btn btn-primary">Créer</button>
-    </form>
+    </div>
+    <a href="{{ route('contracts.index') }}" class="btn btn-secondary mt-3">Retour à la liste des contrats</a>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
@@ -54,8 +39,18 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        let content = {!! json_encode($contract->contractModel->content) !!};
+
+        // Remplacer les placeholders par les valeurs réelles
+        content = content.replace(/\[NOM_LOCATAIRE\]/g, '{{ $contract->tenant->name }}');
+        content = content.replace(/\[NOM_PROPRIETAIRE\]/g, '{{ $contract->owner->name }}');
+        content = content.replace(/\[DATE_START\]/g, '{{ $contract->date_start }}');
+        content = content.replace(/\[DATE_END\]/g, '{{ $contract->date_end }}');
+        content = content.replace(/\[MONTHLY_PRICE\]/g, '{{ $contract->monthly_price }}');
+
         const editor = new EditorJS({
-            holder: 'editorjs',
+            holder: 'editorjs-viewer',
+            readOnly: true,
             tools: {
                 header: {
                     class: Header,
@@ -102,13 +97,7 @@
                     inlineToolbar: true
                 }
             },
-            onChange: function () {
-                editor.save().then((outputData) => {
-                    document.getElementById('content').value = JSON.stringify(outputData);
-                }).catch((error) => {
-                    console.log('Saving failed: ', error);
-                });
-            }
+            data: JSON.parse(content)
         });
     });
 </script>
