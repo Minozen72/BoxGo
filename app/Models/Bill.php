@@ -5,17 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Box extends Model
+class Bill extends Model
 {
     use HasFactory;
-
     protected $fillable = [
-        'name', 'address', 'price', 'owner_id'
-
+        'paiemant_montant', 'paymant_date', 'period_number', 'contract_id', 'created_at'
     ];
 
-    public function owner()
+    public function contract()
     {
-        return $this->belongsTo(User::class, 'owner_id');
+        return $this->belongsTo(Contract::class);
     }
 }

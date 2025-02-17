@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('boxes', function (Blueprint $table) {
-            $table->date('date_debut')->nullable();
-            $table->date('date_fin')->nullable();
+        Schema::create('contract_models', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->json('content')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -22,9 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('boxes', function (Blueprint $table) {
-            $table->dropColumn('date_debut');
-            $table->dropColumn('date_fin');
-        });
+        Schema::dropIfExists('contract_models');
     }
 };

@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('boxes', function (Blueprint $table) {
-            $table->string('adresse')->nullable();
+        Schema::create('bills', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
         });
     }
 
@@ -21,8 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('boxes', function (Blueprint $table) {
-            $table->dropColumn('adresse');
-        });
+        Schema::dropIfExists('bills');
     }
 };
