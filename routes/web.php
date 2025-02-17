@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ContractModelController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\BillController;
+use App\Http\Controllers\TaxController;
 
 // Route principale
 Route::get('/', function () {
@@ -33,4 +34,10 @@ Route::resource('contracts', ContractController::class);
 
 // Route pour les factures
 Route::resource('bills', BillController::class);
+
+// Routes pour la gestion des impôts
+Route::get('/taxes', [TaxController::class, 'index'])->name('taxes.index');
+Route::post('/taxes/calculate', [TaxController::class, 'calculate'])->name('taxes.calculate');
+
+
 

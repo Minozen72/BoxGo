@@ -47,7 +47,7 @@
                                 <a class="nav-link" href="{{ route('bills.index') }}">{{ __('Mes Factures') }}</a>
                             </li> -->
                             <li class="nav-item">
-                                <a class="nav-link" href="">{{ __('Impots') }}</a>
+                                <a class="nav-link" href="{{ route('taxes.index')}}">{{ __('Mes Impots') }}</a>
                             </li>
 
                         @endauth
