@@ -16,7 +16,9 @@
                 <th>Date de début</th>
                 <th>Date de fin</th>
                 <th>Prix mensuel</th>
+                <th>Factures</th>
                 <th>Actions</th>
+
             </tr>
         </thead>
         <tbody>
@@ -27,6 +29,10 @@
                     <td>{{ $contract->date_end }}</td>
                     <td>{{ $contract->monthly_price }} €</td>
                     <td>
+                        <a href="{{ route('bills.index', ['contract_id' => $contract->id]) }}" class="btn btn-secondary">Voir</a>
+                        <a href="{{ route('bills.create', ['contract_id' => $contract->id]) }}" class="btn btn-primary">Créer</a>
+                    </td>
+                    <td>
                         <a href="{{ route('contracts.show', $contract->id) }}" class="btn btn-info">Voir</a>
                         <a href="{{ route('contracts.edit', $contract->id) }}" class="btn btn-warning">Modifier</a>
                         <form action="{{ route('contracts.destroy', $contract->id) }}" method="POST" style="display:inline;">
@@ -35,6 +41,7 @@
                             <button type="submit" class="btn btn-danger">Supprimer</button>
                         </form>
                     </td>
+
                 </tr>
             @endforeach
         </tbody>
