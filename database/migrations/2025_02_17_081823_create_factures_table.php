@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
             $table->integer('paiemant_montant');
-            $table->date('paymant_date');
+            $table->date('paymant_date')->nullable();
             $table->integer('period_number');
             $table->foreignId('contract_id')->constrained()->cascadeOnDelete();
             $table->timestamps();

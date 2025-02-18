@@ -31,12 +31,6 @@
                     <td>{{ $bill->period_number }}</td>
                     <td>
                         <a href="{{ route('bills.show', $bill->id) }}" class="btn btn-info">Voir</a>
-                        <a href="{{ route('bills.edit', $bill->id) }}" class="btn btn-warning">Modifier</a>
-                        <form action="{{ route('bills.destroy', $bill->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Supprimer</button>
-                        </form>
                     </td>
                 </tr>
             @endforeach
