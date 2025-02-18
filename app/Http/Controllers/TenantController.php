@@ -12,7 +12,8 @@ class TenantController extends Controller
      */
     public function index()
     {
-        $tenants = Tenant::all();
+        $user = auth()->user();
+        $tenants = Tenant::where('data_owner_id', $user->id)->get();
         return view('tenants.index', compact('tenants'));
     }
 
@@ -29,6 +30,8 @@ class TenantController extends Controller
      */
     public function store(Request $request)
     {
+        $user = auth()->user();
+        $request->merge(['data_owner_id' => $user->id]);
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:tenants',
