@@ -1,3 +1,5 @@
+@extends('layouts.app')
+
 @section('content')
 <div class="container">
     <h1>Modifier le Contrat</h1>
@@ -38,16 +40,8 @@
         <div class="mb-3">
             <label for="tenant_id" class="form-label">Locataire</label>
             <select name="tenant_id" class="form-control" id="tenant_id" required>
-                @foreach ($users as $user)
-                    <option value="{{ $user->id }}" {{ $user->id == $contract->tenant_id ? 'selected' : '' }}>{{ $user->name }}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="owner_id" class="form-label">Propriétaire</label>
-            <select name="owner_id" class="form-control" id="owner_id" required>
-                @foreach ($users as $user)
-                    <option value="{{ $user->id }}" {{ $user->id == $contract->owner_id ? 'selected' : '' }}>{{ $user->name }}</option>
+                @foreach ($tenants as $tenant)
+                    <option value="{{ $tenant->id }}" {{ $tenant->id == $contract->tenant_id ? 'selected' : '' }}>{{ $tenant->name }}</option>
                 @endforeach
             </select>
         </div>
