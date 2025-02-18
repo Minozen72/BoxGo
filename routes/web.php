@@ -37,6 +37,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('contracts', ContractController::class);
 
     // Route pour les factures
+    Route::get('/bills/payment', [BillController::class, 'payment'])->name('bills.payment');
+    Route::post('/bills/generate-monthly', [BillController::class, 'generateMonthlyBills'])->name('bills.generate-monthly');
     Route::resource('bills', BillController::class);
 
     // Routes pour la gestion des impôts

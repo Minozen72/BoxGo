@@ -70,9 +70,11 @@
                             <li class="nav-item">
                                 <a class="nav-link {{ request()->routeIs('contracts.index') ? 'active' : '' }}" href="{{ route('contracts.index') }}">{{ __('Mes Contrats') }}</a>
                             </li>
-                            <!-- <li class="nav-item">
-                                <a class="nav-link {{ request()->routeIs('bills.index') ? 'active' : '' }}" href="{{ route('bills.index') }}">{{ __('Mes Factures') }}</a>
-                            </li> -->
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('bills.payment') ? 'active' : '' }}" href="{{ route('bills.payment') }}">
+                                    {{ __('Mes Paiement') }}
+                                </a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link {{ request()->routeIs('taxes.index') ? 'active' : '' }}" href="{{ route('taxes.index')}}">{{ __('Mes Impots') }}</a>
                             </li>
