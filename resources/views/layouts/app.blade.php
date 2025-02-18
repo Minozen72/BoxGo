@@ -15,6 +15,33 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <!-- Custom Styles -->
+    <style>
+        .navbar-nav .nav-link {
+            position: relative;
+            padding-bottom: 5px;
+        }
+        .navbar-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            display: block;
+            margin: auto;
+            background:rgb(0, 0, 0);
+            transition: width 0.3s;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+        .navbar-nav .nav-link:hover::after {
+            width: 100%;
+        }
+        .navbar-nav .nav-link.active::after {
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
@@ -32,22 +59,22 @@
                     <ul class="navbar-nav me-auto">
                         @auth
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('boxes.index') }}">{{ __('Mes box') }}</a>
+                                <a class="nav-link {{ request()->routeIs('boxes.index') ? 'active' : '' }}" href="{{ route('boxes.index') }}">{{ __('Mes box') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('tenants.index') }}">{{ __('Mes locataires') }}</a>
+                                <a class="nav-link {{ request()->routeIs('tenants.index') ? 'active' : '' }}" href="{{ route('tenants.index') }}">{{ __('Mes locataires') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('contract_models.index') }}">{{ __('Model de Contrat') }}</a>
+                                <a class="nav-link {{ request()->routeIs('contract_models.index') ? 'active' : '' }}" href="{{ route('contract_models.index') }}">{{ __('Model de Contrat') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('contracts.index') }}">{{ __('Mes Contrats') }}</a>
+                                <a class="nav-link {{ request()->routeIs('contracts.index') ? 'active' : '' }}" href="{{ route('contracts.index') }}">{{ __('Mes Contrats') }}</a>
                             </li>
                             <!-- <li class="nav-item">
-                                <a class="nav-link" href="{{ route('bills.index') }}">{{ __('Mes Factures') }}</a>
+                                <a class="nav-link {{ request()->routeIs('bills.index') ? 'active' : '' }}" href="{{ route('bills.index') }}">{{ __('Mes Factures') }}</a>
                             </li> -->
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('taxes.index')}}">{{ __('Mes Impots') }}</a>
+                                <a class="nav-link {{ request()->routeIs('taxes.index') ? 'active' : '' }}" href="{{ route('taxes.index')}}">{{ __('Mes Impots') }}</a>
                             </li>
 
                         @endauth
@@ -59,13 +86,13 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link {{ request()->routeIs('login') ? 'active' : '' }}" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link {{ request()->routeIs('register') ? 'active' : '' }}" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else

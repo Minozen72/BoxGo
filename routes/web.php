@@ -17,27 +17,32 @@ Route::get('/', function () {
 // Routes d'authentification
 Auth::routes();
 
-// Route pour la page d'accueil
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-// Route de ressource pour BoxController
-Route::resource('boxes', BoxController::class);
+Route::middleware('auth')->group(function () {
 
-// Route de ressource pour LocataireController
-Route::resource('tenants', TenantController::class);
+    
+    // Route pour la page d'accueil
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-// Route de ressource pour ContractModelController
-Route::resource('contract_models', ContractModelController::class);
+    // Route de ressource pour BoxController
+    Route::resource('boxes', BoxController::class);
 
-// Route de ressource pour ContractController
-Route::resource('contracts', ContractController::class);
+    // Route de ressource pour LocataireController
+    Route::resource('tenants', TenantController::class);
 
-// Route pour les factures
-Route::resource('bills', BillController::class);
+    // Route de ressource pour ContractModelController
+    Route::resource('contract_models', ContractModelController::class);
 
-// Routes pour la gestion des impôts
-Route::get('/taxes', [TaxController::class, 'index'])->name('taxes.index');
-Route::post('/taxes/calculate', [TaxController::class, 'calculate'])->name('taxes.calculate');
+    // Route de ressource pour ContractController
+    Route::resource('contracts', ContractController::class);
+
+    // Route pour les factures
+    Route::resource('bills', BillController::class);
+
+    // Routes pour la gestion des impôts
+    Route::get('/taxes', [TaxController::class, 'index'])->name('taxes.index');
+    Route::post('/taxes/calculate', [TaxController::class, 'calculate'])->name('taxes.calculate');
 
 
+});
 
