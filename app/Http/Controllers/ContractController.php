@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Contract;
 use App\Models\ContractModel;
 use App\Models\Box;
-use App\Models\User;
 use App\Models\Tenant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ContractController extends Controller
 {
@@ -21,24 +21,27 @@ class ContractController extends Controller
     {
         $contractModels = ContractModel::all();
         $boxes = Box::all();
-        $owners = User::all(); // Utilisez le modèle User pour les propriétaires
         $tenants = Tenant::all(); // Utilisez le modèle Tenant pour les locataires
-        return view('contracts.create', compact('contractModels', 'boxes', 'owners', 'tenants'));
+        return view('contracts.create', compact('contractModels', 'boxes', 'tenants'));
     }
 
     public function store(Request $request)
     {
+        $owner_id = Auth::id(); // Récupère l'ID de l'utilisateur connecté
+
         $request->validate([
             'date_start' => 'required|date',
             'date_end' => 'required|date',
             'monthly_price' => 'required|numeric',
             'box_id' => 'required|exists:boxes,id',
             'tenant_id' => 'required|exists:tenants,id',
-            'owner_id' => 'required|exists:users,id',
             'contract_model_id' => 'required|exists:contract_models,id',
         ]);
 
-        Contract::create($request->all());
+        $data = $request->all();
+        $data['owner_id'] = $owner_id;
+
+        Contract::create($data);
 
         return redirect()->route('contracts.index')->with('success', 'Contrat créé avec succès.');
     }
@@ -52,24 +55,26 @@ class ContractController extends Controller
     {
         $contractModels = ContractModel::all();
         $boxes = Box::all();
-        $owners = User::all(); // Utilisez le modèle User pour les propriétaires
         $tenants = Tenant::all(); // Utilisez le modèle Tenant pour les locataires
-        return view('contracts.edit', compact('contract', 'contractModels', 'boxes', 'owners', 'tenants'));
+        return view('contracts.edit', compact('contract', 'contractModels', 'boxes', 'tenants'));
     }
 
     public function update(Request $request, Contract $contract)
     {
+        $owner_id = Auth::id(); // Récupère l'ID de l'utilisateur connecté
         $request->validate([
             'date_start' => 'required|date',
             'date_end' => 'required|date',
             'monthly_price' => 'required|numeric',
             'box_id' => 'required|exists:boxes,id',
             'tenant_id' => 'required|exists:tenants,id',
-            'owner_id' => 'required|exists:users,id',
+            'contract_model_id' => 'required|exists:contract_models,id',
             'contract_model_id' => 'required|exists:contract_models,id',
         ]);
 
-        $contract->update($request->all());
+        $data = $request->all();
+        $data['owner_id'] = $owner_id;
+        $contract->update($data);
 
         return redirect()->route('contracts.index')->with('success', 'Contrat mis à jour avec succès.');
     }

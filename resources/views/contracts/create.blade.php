@@ -45,14 +45,6 @@
             </select>
         </div>
         <div class="mb-3">
-            <label for="owner_id" class="form-label">Propriétaire</label>
-            <select name="owner_id" class="form-control" id="owner_id" required>
-                @foreach ($owners as $owner)
-                    <option value="{{ $owner->id }}">{{ $owner->name }}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="mb-3">
             <label for="contract_model_id" class="form-label">Modèle de contrat</label>
             <select name="contract_model_id" class="form-control" id="contract_model_id" required>
                 @foreach ($contractModels as $contractModel)

@@ -21,12 +21,8 @@
             <input type="number" name="paiemant_montant" class="form-control" id="paiemant_montant" value="{{ $contract->monthly_price }}" required>
         </div>
         <div class="mb-3">
-            <label for="paymant_date" class="form-label">Date de paiement</label>
-            <input type="date" name="paymant_date" class="form-control" id="paymant_date" value="{{ old('paymant_date') }}" required>
-        </div>
-        <div class="mb-3">
-            <label for="period_number" class="form-label">Période</label>
-            <input type="number" name="period_number" class="form-control" id="period_number" required>
+            <label for="paymant_date" class="form-label">Date de paiement (optionnel)</label>
+            <input type="date" name="paymant_date" class="form-control" id="paymant_date" value="{{ old('paymant_date') }}">
         </div>
         <div class="mb-3">
             <input type="hidden" id="contract_id" name="contract_id" value="{{ $contract->id }}">
